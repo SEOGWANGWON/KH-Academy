@@ -1,0 +1,124 @@
+DDL (Data Definition Language)  [ 계정만들고 계정 권한 테이블만들기 ]
+    
+    데이터베이스 구조를 정의하고 관리
+    객체를 생성, 수정, 삭제
+    데이터의 스키마 객체를 생성 변경
+    제거 하거나 권한의 부여나 박탈 주석 자료버림등을 수행
+    대표   적인 명령문
+    CREATE(생성), ALTER(수정), DROP(삭제), COMMENT(주석), GRANT, REVOKE(권한 부여, 박탈), TRUNCATE(자료 버림)
+    
+    각 문장은 CREATE ALTER TRUNCATE, GRANT, REMOKE, COMMENT 등으로 시작
+    ==========================================================================================================================================================
+    *2023-10-10* 추가 - (09:47)
+    ALTER TABLE 테이블이름 MODIFY (변경하고자하는 컬럼명 DATA_TYPE(수정값));
+    
+    예제코드 :
+    ALTER TABLE EMPLOYEE MODIFY(JOB VARCHAR2(20 BYTE));
+
+    코드 설명 :
+    'EMPLOYEE' 테이블에서 'JOB' 열에 입력된 값이 열의 최대 길이를 초과하여 문제가 발생했을 경우 ALTER와 MODIFY를 작성하여 'JOB' 열의 크기를 20 BYTE로 변경할 수 있다.
+    ERROR EX) SQL 오류: ORA-12899: "SCOTT"."EMPLOYEE"."JOB" 열에 대한 값이 너무 큼(실제: 11, 최대값: 9)
+    ==========================================================================================================================================================
+
+
+    ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;                                         // 12C버전 이상에서만 쓸수 있음
+    Oracle DataBase에서 "_ORACLE_SCRIPT" 모드 활성화                                    // 작업을 하는동안 자료를 나타냄 (연결상태를 나타냄)
+    _ORACLE_SCRIPT : Oracle DataBase에서 12C 이상 버전에서 사용할 수 있는 특별한 모드     // 12C버전 이전에서는 없던 모드 (새로운 권한을 추가한것)
+    
+   
+    
+
+
+    CREATE (생성) :
+        CREATE TABLE : 새로운 테이블 생성
+        CREATE VIEW : 가상 테이블 생성해서 데이터 베이스 일부 데이터에 대한 뷰를 정의
+        CREATE DATABASE : 새로운 데이터베이스를 생성
+        CREATE INDEX : 인덱스를 생성하여 데이터 검색 속도 향상
+   
+    ALTER (수정) :
+        ALTER TABLE : 이미 존재하는 테이블의 구조 변경 열 추가, 수정, 삭제, 제약 조건 등을 변경할 수 있음.
+        ALTER INDEX : 이미 존재하는 인덱스의 구조 변경
+====================================================================================================================
+/* 2023-10-11 */
+
+    DROP (삭제) : 데이터베이스에서 객체 (테이블, 뷰, 인덱스, 사용자 등) 
+                  를 삭제하는데 사용되는 SQL 명령어 (영구삭제)
+        
+        DROP TABLE 테이블이름 : 테이블 삭제
+        DROP VIEW  뷰이름 : 뷰 삭제
+        DROP INDEX 인덱스이름 : 데이터 인덱스 삭제
+        DROP DATABASE 데이터베이스이름 : 데이터 베이스 삭제
+        DROP USER 사용자이름 : 사용자 이름 삭제
+
+    CASCADE    : 해당 명령이 연결된 객체 또는 데이터 영향 주는 방식 
+                 지정 주로 삭제 명령으로 사용
+                 삭제 명령이 관련된 모든 객체나 데이터를 삭제
+                 DROP TABLE 부모테이블 CASCADE CONSTRAINTS;
+        예제코드 )
+            CREATE TABLE parent_table (
+                parent_id INT PRIMARY KEY
+            );
+            CREATE TABLE child_table (
+                child_id INT PRIMARY KEY,
+                parent_id INT,
+                FOREIGN KEY(parent_id) REFERENCES parent_table(parent_id)
+                ON DELETE CASCADE);
+                
+            --부모 테이블에 데이터 추가
+            INSERT INTO parent_table (parent_id) VALUES (1);
+            
+            --자식 테이블에 데이터 추가
+            
+            INSERT INTO child_table (child_id, parent_id) VALUES (1,1);
+            INSERT INTO child_table (child_id, parent_id) VALUES (2,1);
+            
+            --부모 테이블에서 특정 행 삭제
+            DELETE FROM parent_table WHERE parent_id = 1; 
+            
+            SELECT * FROM PARENT_TABLE;
+
+
+    EXIT       : 현재 들어가있는 계정 세션을 나감
+====================================================================================================================
+/* 2023-10-11 */
+    CMD창에서 테이블 보는 방법
+
+        sqlplus sys/oracle as sysdba
+        ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;
+        conn 계정명/비밀번호;
+        SELECT * FROM 테이블명;
+    
+====================================================================================================================
+
+    GRANT (권한 부여) : 권한을 부여하는 키워드
+        SELECT INSERT UPDATE DELETE CREATE TABLE 등
+        수행하는 권한을 지정할 수 있음
+
+    GRANT 사용 예제 : 
+            GRANT 권한 TO 역할 또는 사용자 [WITH GRANT OPTION];
+            CREATE SESSION 권한 부여 : 사용자가 데이터베이스에 로그인하고 세션을 생성하는데 필요한 권한 
+                                       이 권한을 부여하면 부여된 사용자는 데이터베이스에 로그인할 수 있는 권한을 가지게 됨
+            CREATE ANY TABLE 권한 부여 : 사용자가 데이터베이스 내에서 어떤 스키마나 테이블을 생성할 수 있는 권한을 가지게 됨
+                                         권한이 부여된 사용자는 어떤 스키마에서든 테이블을 만들 수 있음
+            CONNECT : 사용자가 데이터베이스에 연결하는데 필요한 권한
+            RESOURCE : 사용자가 테이블, 시퀀스 등의 리소스를 생성할 수 있는 권한 부여
+            DBA : 데이터 베이스 관리자 권한을 가짐
+                  사용자에게 거의 모든 베이터베이스 작업을 수행할 수 있는 권한을 부여 
+                  이 권한은 보안상 주의해서 부여
+    
+    SESSION(세션):
+            컴퓨터 네트워크 분야에서 사용되는 용어
+            사용자 또는 클라이언트 서버 간의 연결을 나타냄
+            데이터베이스는 사용자 또는 응용프로그램이 데이터베이스 서버에 연결
+            상호작용 하는 동안 작업의 단위 의미 
+            각 세션은 독립적인 환경을 가지며, 데이터베이스 서버와 통신을 담당
+
+    SET (설정) :
+            설정 또는 조정하는데 사용
+            변수 설정 : 변수값을 설정하거나 변경하는데 사용
+            예를들어 SET Salary = 5000; 변수를 5000으로 설정하는것을 의미
+======================================================================================================================
+   
+
+        
+ 

@@ -1,0 +1,12 @@
+List
+	데이터를 순서대로 저장하는 자료 구조 중 하나
+	여러 개의 요소를 포함할 수 있음
+	배열(Array)과 달리 크기를 (유)동적으로 조절할 수 있으며, 
+	중복된 요소를 허용할 수 있음.
+	util 패키지에 속해있음
+	List 인터페이스의 구현체는 ArrayList와 LinkedList
+	
+	List 인터페이스의 객체는 두종류 
+							1. ArrayList와 
+							2. LinkedList
+	

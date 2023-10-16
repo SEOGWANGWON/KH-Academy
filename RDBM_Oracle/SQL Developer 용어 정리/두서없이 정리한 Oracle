@@ -1,0 +1,103 @@
+2023 - 10 - 05
+
+DDL				// 그릇, 또는 테이블
+
+DML				// 그릇 안에 담는 내용물
+
+RDBM
+
+NoSQL
+
+
+Oracle SQL Developer 다룰때 ===============================
+이클립스(자바) 랑 달리 코딩을 쓰고 실행한뒤 저장이 되지 않고 썻던 코드를 보기가 어려운데 그냥 테이블 편집에 들어가서
+DDL 란을 보고 생성해주면 된다. 그럼 테이블 안에 저장되있던 DDL(코드)이 자동으로 생성된다.  
+
+Oracle SQL Developer 의 경우 Eclipse 와 달리 ▶(Run) 을 누르면 모두 실행되는것이 아니라 클릭해서 선택한 행을 ; 기준으로 코드를 Run한다. (명령문 실행)
+                            Eclipse 에서 썻던 ▶(Run) 과 같이 모두 실행하려면  ▶ 옆에있는 A4 용지 처럼생긴 스크립트 실행(F5)를 누르면 된다.
+
+CREATE 문
+================================================
+
+CREATE TABLE 테이블이름 (
+ id      NUMBER(5) PRIMARY KEY, 	// PRIMARY = 고유값
+ 이름     VARCHAR2(50),		// ,를 입력해주지 않으면 에러가남
+ 나이     NUMBER(5),
+ 이메일   VARCHAR2(50),
+ 입사일   DATE,
+ 연봉 NUMBER(10,2)  // (길이,소수점 뒷자리)
+);
+
+
+INSERT INTO "user" (user_id, name, age, email, hire_date, salary)
+	VALUES (1, 'KH', 35, 'kh@kh.com', TO_DATE('2023-10-05', 'YYYY-MM-DD'), 5000.00); 
+INSERT INTO "user" (user_id, name, age, email, hire_date, salary) 
+    VALUES (2, 'jane', 25, 'jane@kh.com', TO_DATE('2024-02-15','YYYY-MM-DD'), 6000.25);
+
+
+SELECT * FROM  "user"; 		// "user"에서 무엇을 만들었는지 확인
+
+UPDATE user SET salary = 6000.00 WHERE user_id = 1;      // user_id = 1 에 위치한 salary 값을 6000.00 으로 설정
+
+
+혼자하던거 ==============================
+
+CREATE TABLE user_infos(
+ name VARCHAR2(50),
+ age NUMBER(5),
+ likefood VARCHAR2(50)
+ );
+
+INSERT INTO "user_infos" (name, age, likefood)
+    VALUES ('서광원', '26', '영양밸런스가 잘잡힌 음식');
+
+DDL=======
+
+[용어 정리]
+ㅣㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅣ       계정명/비밀번호
+ㅣsqlplus sys/oracle as sysdba				// SQL 접속 // 최고 권한 부여
+ㅣALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;		// 기본이 FALSE 였음 TRUE로 바꾸어 준 것 (세션 변경)  	//이걸 먼저 해주지 않으면 계정도 만들수없고, 삭제할수도 없다.
+ㅣCREATE USER 계정명 IDENTIFIED BY 비밀번호;		// 아이디 비번 생성		// 한글, 특수문자 불가능
+ㅣALTER USER 계정명 IDENTIFIED BY 변경할비밀번호;	// 계정 비밀번호 변경 		// 변경할 비밀번호는 문자로 시작해야합니다.
+ㅣGRANT CREATE SESSION TO 계정명;			// 세션 권한 부여		// GRANT (권한 주는 명령어)
+ㅣGRANT CREATE ANY TABLE TO 계정명;			// 테이블 생성 권한 부여
+ㅣGRANT connect, resource, dba to 계정명;		// 최고 권한 부여
+ㅣconn 계정명/비밀번호; 	                                // cmd에서 계정연결 
+ㅣㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+ 	
+
+
+DML======= 
+
+[용어 정리]
+ㅣㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅣINSERT INTO 테이블명 (테이블에있는 모든컬럼) EX) (USER_ID, USER_NAME, USER_EMAIL)
+ㅣVALUES (컬럼순서에 맞게 넣어줄 값); 	  EX) (1, 'kh', 'kh@kh.com');
+ㅣSELECT * FROM 테이블명;								// 모두 보기
+ㅣSELECT * FROM 테이블명 WHERE 컬럼명 = '찾고싶은내용';					// 해당 컬럼명 내용보기
+ㅣUPDATE 테이블명 SET 컬럼명 =  바꿀값  WHERE 컬럼명 = 바꾸고싶은값 			// 값 변경
+ㅣDELETE FROM 테이블명 WHERE 컬럼명 = 지우고싶은값;					// 값 지워보기
+ㅣㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+// NUMBER 소수점 이하 까지 허용
+// INT 소수점 이하 허용X
+// 날짜를 써줄경우 : TO_DATE('년도-월-일', 'YYYY-MM-DD') 로 써줘야한다. 
+//		ex) TO_DATE('1997-04-27','YYYY-MM-DD');
+
+--멤버의 이름, 이메일 주소 및 취미 검색
+SELECT M.MName, M.MEmail, H.Hobby	--M 테이블 Mname, Memail 컬럼과 ,H 테이블 hobby 컬럼 보기(SELECT)
+FROM MEMBERINFO M			--KHSTORE 계정에 있는 MEMBERINFO 테이블을 M 으로 함축
+JOIN Hobbies H ON M.MNO = H.MNO;	--Hobbies 테이블을 H 으로 함축 후 M.MNO = H.MNO // MNO의 PRIMARY KEY 값이 일치하는 행에 맞춰 hobby 컬럼 추가
+
+
+--특정 사원의 급여와 수수료 업데이트 (사원번호 7788 급여(salary)를 3500 수수료(commission) 500변경)
+UPDATE employee SET SALARY = 3500 , COMMISSION = 500 WHERE ENO = 7788;	// , 로 한번에 써줄수 있음
+
+--SELECT 1, '책읽기' FROM DUAL UNION ALL --// 단일값 조회
+
+=====================================================================================================================================
+
+-- SELECT * FROM WHERE ( LIKE , = , IS ) WHERE 조건부 넣을떄 뒤에 붙는 용어 종류 (  더 있는데 내가 아직 모름 )
+

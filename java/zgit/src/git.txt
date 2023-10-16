@@ -1,0 +1,8 @@
+파일 커밋 메세지 수정 하는법
+git status
+	수정중인 파일 목록
+git add (폴더 이름)/(폴더안쪽)*(전체선택)
+
+git commit -m "이름"
+
+git push

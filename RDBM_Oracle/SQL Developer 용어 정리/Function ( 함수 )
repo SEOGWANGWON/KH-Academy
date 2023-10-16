@@ -1,0 +1,178 @@
+  Function (함수)
+ㅣㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+ㅣ--ORDER BY : 결과 정렬
+ㅣ SELECT * FROM fridaytable ORDER BY name;           --이름을 오름차순 정렬
+ㅣ  SELECT * FROM fridaytable ORDER BY birthdate;      --생일을 오름차순 정렬
+ㅣ  
+ㅣ --COUNT : 행의 수를 세어줍니다.
+ㅣ SELECT COUNT(*) AS row_COUNT FROM fridaytable;      --행 갯수 카운트
+ㅣ 
+ㅣ --BETWEEN : 범위를 지정할떄 자주씀 
+ㅣ UPDATE BOOK SET title = '나디아 연대기' WHERE book_id BETWEEN 7 AND 10; -- BOOK_ID 7부터 10까지 '나디아 연대기'로 변경
+ㅣ
+ㅣ --ALTER MIDIFY 테이블 구조 변경하기
+ㅣ ALTER TABLE fridaytable MODIFY description VARCHAR2 (200);   -- description 열의 크기 늘리기
+ㅣ 
+ㅣ -- SUM : 숫자 열의 합을 계산
+ㅣ SELECT SUM(id) AS id_sum FROM fridaytable;           -- 모든 id값 합산
+ㅣ
+ㅣ -- SUBSTR : (컬럼명, 위치, 위치에서 나아갈거리 )  -- 컬럼안에 특정 위치를 특정하기 유용함
+ㅣ WHERE SUBSTR(STUDENT_SSN, 8, 1) = 2             -- 주민등록번호 뒷자리 첫번째 숫자 2 인 사람 찾기
+ㅣ 
+ㅣ --TO_CHAR : 날짜를 문자열로 변환
+ㅣ SELECT name, TO_CHAR(birthdate, 'YYYY-MM-DD') AS birthdate_str FROM fridaytable;       --
+ㅣ 
+ㅣ --LENGTH : 문자열의 길이 반환
+ㅣ SELECT name, LENGTH(name) AS name_len FROM fridaytable;        --name의 길이를 반환
+ㅣ 
+ㅣ --LENGTHB : 문자열의 바이트 길이 반환
+ㅣ SELECT LENGTHB('abc') FROM DUAL;  -- DUAL 은 언제나 쓸수있는 임시테이블이고, LENGTHB 는 3이다. (한글의경우 글자당 3)  
+ㅣ
+ㅣ INSERT INTO fridaytable (id, name, description, birthdate)
+ㅣ VALUES (6, 'Jane Smith', '아녕하쎄요', TO_DATE('2007-05-05','YYYY-MM-DD'));  --외국인 추가
+ㅣ 
+ㅣ -- UPPER : 문자열을 대문자로 변환
+ㅣ SELECT name, UPPER(name) AS upper_name FROM fridaytable;       --name 열을 대문자로 변환후 upper_name 로 이름을 바꾼 후 SELECT
+ㅣ -- LOWER : 문자열을 소문자로 변환
+ㅣ SELECT name, LOWER(name) AS lower_name FROM fridaytable;       --name 열을 소문자로 변환후 lower_name 로 이름을 바꾼 후 SELECT
+ㅣ
+ㅣ -- NVL (Null Value) : null 값을 다른 값으로 대체
+ㅣ        예제코드 )  SELECT ename, nvl(commission, 0) as commission
+ㅣ                    FROM employee;
+ㅣ
+ㅣ -- NEXT DAY :  다음 주어진 요일 날짜 찾기
+ㅣ        예제코드 ) SELECT ename, next_day(sysdate, 'FRIDAY') as next_day
+ㅣ                    FROM dual;
+ㅣ
+ㅣ -- TRUNC  : 날짜 또는 숫자의 소수부 제거
+ㅣ       예제코드 ) SELECT ENAME, TRUNC(SALARY) AS TRUNC_SALARY FROM EMPLOYEE;
+ㅣ
+ㅣ -- Floor(내림), CEIL(올림), ROUND(반올림) : 숫자 반올림 및 내림
+ㅣ	 예제코드 ) 
+ㅣ	SELECT enmae, FLOOR(salary) as Floor_Salary From employee;
+ㅣ	SELECT Ename, CEIL(SALARY) AS CEIL_SALARY FROM EMPLOYEE;
+ㅣ	SELECT ENAME, ROUND(SALARY, 2) AS ROUND_SALARY FROM EMPLOYEE;
+ㅣ 
+ㅣ -- ABS : 절대값 계산 -를 없앰
+ㅣ	SELECT ENAME, ABS(COMMISSION) AS ABS_COMMITION FROM EMPLOYEE;
+ㅣ
+ㅣ
+ㅣ 
+ㅣ --ROUND : 숫자를 반올림
+ㅣ --birthdate : 열의 연도를 반올림하여 출력
+ㅣ --EXTRACT : 날짜 값에서 연도를 추출
+ㅣ SELECT name, ROUND(EXTRACT(YEAR FROM birthdate)) AS BirthYEAR FROM fridaytable; 
+ㅣ --TIMESTAMP : 시간대를 나타냄
+ㅣㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+
+★★★ (중요)
+======================================================================================================================================================================================
+  WINDOW : 
+  
+      SQL 에서 사용되는 분석 함수
+            결과 집합 내에서 행의 순서와 관련된 계산을 수행할 수 있음  
+            집계, 순위, 평균, 합계 등을 계산할 때 유용
+      데이터를 파티션 별로 분할하고 순서를 정의한 다음 각 파티션 내에 계산을 수행
+      <윈도우함수>(<표현식>) OVER (
+            PARTITION BY <파티션 열>
+            ORDER BY <정렬 열>
+            ROWS BETWEEN <시작 행> AND <끝 행>
+    
+      <윈도우 함수> : 사용할 윈도우 함수 작성
+                      ex) SUM, AVG, RANK 등
+      <표현 식> : 계산을 수행할 열 또는 식
+      PARTITION BY : 데이터를 파티션으로 나누느데 사용할 열을 지정
+      ORDER BY : 각 파티션 내에서 행 순서를 정의하는데 사용할 열을 지정
+      ROWS BETWEEN : 계산을 수행할 행의 범위를 정의하는데 사용
+      
+    코드예제)
+          SELECT order_id, order_date, total_price,
+          SUM(total_price) OVER (ORDER BY order_date) AS OD    -- (ORDER BY order_date) 을 기준으로 SUM(total_price)
+          FROM orders;
+          --SUM(total_price) OVER (ORDER BY order_date) AS OD; -- 이 부분이 윈도우 함수 
+          --이 함수는 order_date를 기준으로 각 주문의 총 가격을 누적한 값을 반환 한 것
+          --이 결과 집합에는 order_id, order_date, total_price, OD 열이 포함
+          --각 주문에 대한 누적 가격을 게산할 수 있음
+
+  RANK 함수 : 
+          동일한 값이 있는 경우 동일한 순위 부여
+          동일한 값이 여러 번 나타나면 동일한 순위가 여러번 반복
+          예를들어 동일한 값을 가진 두 번재와 세 번재 행에 둘 다 2위 할당
+          결과 집합에서 중간에 순위를 건너뛸 수 있음
+      
+    코드예제 )
+        SELECT order_id, order_date, total_price,
+        RANK() OVER (PARTITION BY <파티션 열> ORDER BY order_date) AS OD    -- (PARTITION BY <파티션 열> ORDER BY order_date) 기준으로 랭크를 매김
+        FROM orders;
+
+  RANK() ROW_NUMBER() 함수 : 
+           결과 집합의 행에 순위를 할당하는데 사용
+           동일한 값이 있더라도 각 행에 고유한 순위를 부여
+           동일한 값이 있는 경우에도 각 행에 대해 중복되지 않는 순위를 할당
+           예를 들어 동일한 값을 가진 두 번째와 세 번째 행에 대해 각각 2위와 3위 할당
+           결과 집합에서 순서는 항상 연속적
+
+    코드예제 )
+
+  ROWNUM : 데이터베이스에서 사용할 수 있는 가상 열 중 하나
+           검색 결과 집합의 각 행에 할당된 고유 번호를 나타냄
+           결과 집합의 특정 행을 선택하거나 행에 번호를 할당하는데 사용
+
+    특징  : 검색 결과 집합을 처리하는 동안 생성됨
+            결과 집합에 대한 각 행에 할당
+            1부터 시작하여 각 행에 연속된 정수 값을 부여
+            원하는 행을 선택하거나 행에 일련번호를 할당할 수 있지만
+            결과를 정렬하거나 분할하는 작업에 영향을 주진 않음
+
+======================================================================================================================================================================================
+
+======================================================================================================================================================================================
+--REPLACE 문자열에서 특정 문자 또는 문자열을 다른 문자열로 대체
+SELECT REPLACE (description, '풍미', '맛') FROM menu;
+SELECT product_name, REPLACE(product_name, '스마트', '똑똑한')
+FROM products;
+
+--CONCAT 두 문자열을 결합 -- CONCAT = ( || )
+SELECT product_name || '가격 : $' || TO_CHAR(price, '999.99') 
+FROM products;
+
+-- SUBSTR 문자열 일부 추출
+SELECT product_name, SUBSTR(product_name, 1, 3) 
+FROM products;
+
+--TRIM, LTRIM, RTRIM 문자열에서 ' ' 제거하는데 사용 
+
+-- TRIM  문자열   양쪽 끝에 있는 ' '(=공백)을 제거하는데 사용
+-- LTRIM 문자열   왼쪽 (시작부분)의 ' '(=공백)을 제거
+-- RTRIM 문자열 오른쪽 (끝부분)의 ' '(=공백)을 제거
+
+SELECT product_name, TRIM(' '), LTRIM(product_name, '노트'),
+        RTRIM(product_name,'폰')
+FROM products;
+
+SELECT LTRIM(category, '제품') FROM products;
+--전자제품에서 제품을 제거하고 출력 SELECT RTRIM 활용
+SELECT RTRIM(category, '제품') FROM products;
+SELECT LTRIM(category, '전자') FROM products;
+
+-- INSTR : 문자열에서 특정 문자 위치
+SELECT category, INSTR(category,'품') 
+FROM products;
+
+-- INSTR 제품 이름에 폰이 들어가는 제품 찾기
+SELECT product_name
+FROM products
+WHERE INSTR(product_name, '폰') >0;
+
+--가장 긴 제품 이름 찾기 ( MAX(LENGTH) )
+SELECT prodcut_name 
+FROM products 
+WHERE LENGTH(product_name)
+      = (SELECT MAX(LENGTH(product_name)) FROM products);
+
+
+======================================================================================================================================================================================
+
+======================================================================================================================================================================================
+
