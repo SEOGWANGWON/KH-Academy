@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel = "stylesheet" type="text/css" href="./css/styles.css"> <!-- Java로 따지면 import 해준것-->
+</head>
+<body>
+    <div class="container">     <!-- 시작-->
+        <h1>점심 게시판</h1>
+
+        <ul class = "post-list"> 
+            <!-- 게시물 목록 작성하는 곳-->
+            <li class = "post">
+                <h2>맥주창고 역삼점</h2>
+                <p>매뉴 더보기 -> <a href="https://www.instagram.com/lunch_mz/?hl=ko"></a></p>
+            </li>
+            <li class ="post">
+                <h2>명동칼국수 역삼점</h2>
+                <p>명동칼국수 9000원</p>
+
+            </li>
+
+        </ul>
+        <div class = "form-container">
+            <!-- 메뉴 추가하는 추가란-->
+            <h2>새 게시물 작성하기</h2>
+            <form class = "post-form">
+                <input type="text" placeholder="제목">
+                <textarea placeholder="내용작성하기"></textarea> <!-- textarea는 사이즈를 마우스로 마음껏 조절가능-->
+                <button type="submit" id="post-button">작성완료</button> <!-- class랑 id는 차이점이있따-->
+
+                <button onclick="hihibutton()">ㅎㅇ</button>
+                <button onclick="joinButton()">회원가입 하기</button>
+                <p id="joinCheck"></p>
+
+            </form>
+            <script> // 자바스크립트 언어
+                function hihibutton(){
+                    alert("반갑구먼")
+                };
+                function joinButton(){
+                    var txt;
+                    if(confirm("버튼클릭!")){
+                        txt = "클릭완료~";
+                    }else{
+                        txt = "회원가입을 완료하지 못했습니다.";
+                    }
+                    document.getElementById("joinCheck").innerHTML = txt;
+                };
+
+            </script>
+
+            <script> // id를 가져와서 연결했기에 가능
+                document.addEventListener("DOMContentLoaded", function(){
+                    // 1. HTML 버튼 ID 가져오기
+                    const postButton = document.getElementById("post-button");
+
+                    // 버튼을 클릭할 때 실행될 함수를 정의
+                    function buttonClick(){
+                        alert("게시물의 내용을 작성해주세요.")
+                    }
+
+                    // 버튼 클릭시 실행될 함수 연결
+                    postButton.addEventListener("click",buttonClick);
+
+
+                });
+
+            </script>
+
+        </div>
+    </div> <!-- 끝부분-->
+</body>
+
+<foot></foot>
+</html>

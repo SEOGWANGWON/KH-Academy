@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>My Blog</title>
+    <style>
+        *{ /* 전체 설정 */
+            box-sizing: border-box; /* 이쁘게 box로 모음*/
+            
+           
+        }
+        header{
+            background: linear-gradient(to right,lightCyan ,skyBlue 60%,deepskyblue 100%);
+            /* background-color: #f09723b0; */
+            padding: 30px;
+            text-align: center;
+            font-size: 35px;
+            color: white;
+        }
+
+        nav{
+            float: left; /* 왼쪽으로 위치*/
+            width: 15%;
+            height: 1000px;
+            background: #0a0611;
+            padding: 20px;
+        }
+        nav ul{
+            padding: 10px;
+            
+        }
+        article{
+            float: left;
+            padding: 20px;
+            width: 85%;
+            background-color: #c0d5d8;
+            height: 1000px;
+        }
+        /* 여기중요*/
+        section::after{
+            content: "";
+            display: table;
+            clear: both;
+        }
+        footer{
+            background:linear-gradient(45deg,violet,Orange); /*시작할 색상 정하기*/
+            /* background-color: #cfff33;  */
+            padding: 10px;
+            text-align: center;
+            color: black;
+            
+        }
+        @media (max-width:600px){ /* 모바일 버전으로 볼때*/
+            nav,article{
+                width: 100%;
+                height: auto;
+        }
+        }
+        .title{
+            text-align: center;
+        }
+        li{
+            color:white;
+            font-size: 18px;
+            padding: 18px;
+            float: left;
+            
+        }
+        .read-text{
+            float: none;
+            width: 130px;
+            padding: 5px;
+            
+        }
+        .retext{
+            box-sizing: border-box;
+            width: 50%;
+            height: 50%;
+            margin-top:25%;
+            padding: 0; 
+        }
+        input{
+            padding: 0px, 5px;
+        }
+        textarea{
+            height: 100px;
+        }
+        #comments{
+            border: 1px solid #9f9ba7;
+            padding: 0;
+            width: 200px;
+            height: 0;
+        }
+        .Atitle{
+            padding: 0;
+            margin-top: 200%;
+            margin-left: 10%;
+            color: white;
+            
+        }
+
+
+    </style>
+</head>
+<body>
+    <h2 class = "title">Tistory Blog</h2>
+    <p class = "title" style="color:rgb(23, 14, 44) ;">종환이형한테 난 디자인은 아니라고 들었따 진짜인거 같다 내가봐도 미적감각이 박살났다</p>
+    <header>
+        <h2 style="color: #eb56e3;">강아지 키우고 싶은사람</h2>
+    </header>
+    
+    <section> <!-- 보통 회사에서 되어있는 구조 -->
+        <nav>
+            <ul>
+                <li><a href="https://hotsixlover.tistory.com/category/Java" style="color: white;">Java</a>
+                    <p class = "read-text"><a href="https://hotsixlover.tistory.com/category/Java/Java%20Error%20Clear" style="color: white;">Java Error</a></p>
+                </li>
+                <li><a href="https://hotsixlover.tistory.com/category/Oracle%20%26%20SQL" style="color: rgb(255, 255, 255);">Oracle & SQL</a>
+                    <p class = "read-text"><a href="https://hotsixlover.tistory.com/category/Oracle%20%26%20SQL/Oracle%20Error%20Clear" style="color: white;">Oracle Error</a></p>
+                </li>
+                <li><a href="https://hotsixlover.tistory.com/category/HTML" style="color: white;">HTML
+                    <p class = "read-text"><a href="https://hotsixlover.tistory.com/category/HTML/HTML%20Error%20Clear" style="color: white;">HTML Error</a></p>
+                </li>
+                <li class ="Atitle"><a href="https://hotsixlover.tistory.com/" style="color: rgb(229, 255, 0);">블로그로 이동</a>
+
+                </li>
+            </ul>
+        </nav>
+   
+        <article>  컨텐츠를 나타낼때 쓰임
+             <h1>여기다 뭐쓰지</h1>
+             <p>진짜 쓸게없네 <br>
+            진짜로 쓸게없다</p>
+            <div id="posts"> 
+                <!-- 게시물 추가하는 공간 -->
+
+            </div>
+
+        <form id = "postForm">
+            <label for="title">제목 : </label>
+                <input type="text" id="title" name="title" required> <!-- 필수로 적어줘야 하는애 required-->
+                <label for="content">내용 : </label>
+                <textarea id="content" name="content" required></textarea>
+                <button type="submit">게시하기</button>
+                <a href="https://hotsixlover.tistory.com/">블로그로가기</a>
+            <!--
+            <div class = "retext">댓글 쓰기<br>
+                <input type = "text" placeholder="닉네임" style="width: 40%;"><input type="text" placeholder="비밀번호" style="width: 40%" >
+                <textarea id="commentInput" placeholder ="댓글을 입력해주세요." style="width: 80%" style="height: 150px" ></textarea>
+                <br>
+                <button type="submit">Enter</button>
+                
+                <p id="clicktext"></p>
+                <div id = "comments" >
+
+                </div>
+                
+            </div>
+            -->
+        </form>
+            
+        </article>
+
+    </section> <!--세션-->
+    <script>
+    const postForm = document.getElementById("postForm");
+    const posts = document.getElementById("posts");
+    const postArray = []; // 게시물 저장배열
+
+    postForm.addEventListener("submit",function(event){
+        event.preventDefault();
+        const title = postForm.title.value;
+        const content = postForm.content.value;
+        const date = new Date();
+        const post = {
+            title,
+            content,
+            date,
+            comment:[],
+        };
+        postArray.push(post);
+
+        const postDiv = document.createElement("div");
+        postDiv.classList.add("post");
+        postDiv.innerHTML = `
+        <h3>${title}</h3>
+        <p>${content}</p>
+        <p>게시일 : ${date.toLocaleString()}</p>
+        `;
+
+
+
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-button");
+        deleteButton.innerText = "삭제하기";
+        deleteButton.addEventListener("click",() =>{
+            postArray.splice(postArray.indexOf(post),1);
+            posts.removeChild(postDiv);
+        });
+
+        const commnetForm = document.createElement("form");
+        commnetForm.innerHTML = `
+                <input type= "text" name="comment" placeholder="댓글추가하기">
+                <button type="submit">게시</button>
+        `;
+
+        commentForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+                const commentText = commentForm.comment.value; //comment에 대한값을 가져오겟다
+                const comment ={
+                    text : commentText,     // 이새끼 Text 로 대문자여서 게시가 안됐음
+                    date : new Date(),      //,로 끝난다..
+                };
+                
+                post.comments.push(comment);
+                const commentDiv = document.createElement("div");
+                commentDiv.classList.add("comment");
+                commentDiv.innerHTML = `
+                    <p>${commentText}</p>
+                    <p>게시일 : ${comment.date.toLocaleString()}</p>
+                `;
+                // 댓글 입력 초기화
+
+                commentForm.comment.value = "";
+                postDiv.appendChild(commentDiv);
+
+            });
+
+
+
+        postDiv.appendChild(deleteButton);
+        postDiv.appendChild(commentForm);
+            
+            // 게시물 목록 추가
+        posts.appendChild(postDiv);
+
+            // 게시글 입력 초기화
+        postForm.title.value = "";
+        postForm.content.value = "";
+
+
+
+    });
+</script>
+
+</body>
+<footer>
+    <p> Blog is powered by kakao / Designed by <a href="https://www.tistory.com/">Tistory</p>
+</footer>
+<foot></foot>
+    <script>
+        /*
+        function retext(){
+                   
+                if(confirm("정말 등록하시겠습니까?")){
+                    alert("댓글이 등록 되었습니다.")
+                       
+                }else{
+                    alert("댓글이 등록되지 않았습니다.")
+                }
+                   
+               };
+        
+        function addComment(){
+            const commnetInput = document.getElementById("commentInput");
+            const commentText = commnetInput.value;
+
+            if(commentText.trim() === ""){
+                alert("메세지를 입력해주세요.")
+                return;
+            }
+            const commentsBox = document.getElementById("comments");
+            const commentDIV = document.createElement("div");
+            commentDIV.className = "retext";
+            commentDIV.textContent = commentText;
+
+            commentsBox.appendChild(commentDIV);
+            commnetInput.value = "";
+
+        }
+        */
+       
+       
+
+        
+
+        
+    </script>
+
+
+</html>

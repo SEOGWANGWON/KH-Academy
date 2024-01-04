@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>게시판</title>
+        <style>
+            .board{
+                width: 600px;
+                height: 300px;
+                background-color: bisque;
+
+            }
+            .post-title{
+                color: darkgreen; /*제목의 글자 색상을 darkgreen로 설정 */
+                background-color: darkturquoise; /* .post-title 해당 클래스의 범위 색상 */
+
+            }
+
+            .post{
+                
+                padding: 10px;  /* padding : .post 클래스간 div의 간격*/
+                background-color: #f569eb;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "board">
+        <div class = "post"> <!-- 클래스임을 나타낼때 ex) .클래스명 --> 
+            <div class = "post-title">첫 번째 게시물</div>
+            <div class = "post-content">이것은 첫 번째 게시물의 내용입니다.</div>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsXWqCwhkVPNfPquW8bhGSRSZnU9mvDlcosJTMYXIefrbZ_jrVjyUL-QGY40dnfssyIPI&usqp=CAU" style="width:120px; height:50px;">
+            <br>
+            <button style="width:120px; height:25px">버튼 생성</button>
+
+
+        </div>  <!-- 구획을 정의하며 스타일 및 레이아웃에 사용  tr/td 대신 많이쓰는것-->
+
+        <div class = "post">
+            <div class = "post-title">두 번째 게시물</div>
+            <div class = "post-content">이것은 두 번째 게시물의 내용입니다.</div>
+        </div>
+        </div>
+
+    </body>
+
+    <foot>
+
+    </foot>
+
+
+</html>

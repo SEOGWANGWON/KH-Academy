@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>kh정보교육원 2조</title>
+        <style>
+            *{
+                box-sizing: border-box;
+                width: 95%;
+                
+
+            }
+            .title{
+                text-align: center;
+                background-color: aliceblue;
+            }
+            .teamlist{
+                font-size: 16px;
+                background-color: rgb(221, 250, 215);
+                text-align: left;
+                width: 200px;
+                height: 900px;
+            }
+            .list{
+                padding: 20px;
+                height: 200px;
+                font-size: 16px;
+            }
+            .postForm{
+                padding: 0;
+                width: 500px;
+                float: left;
+                margin-top: 800px;
+                background-color: rgb(206, 238, 226);
+                
+            }
+            .teamtema{
+                padding: 0;
+                width: 200px;
+                float: left;
+                
+            }
+            .container{
+                padding: 0;
+            }
+            
+           
+
+        </style>
+    </head>
+    <body>
+        <div>
+        <header>
+            <h2 class = "title">서브프로젝트 2조</h2>
+        </header>
+        <section style="width: 1000px;" class="container">
+             <nav class = "teamtema">
+                <ul class = "teamlist">
+                    <li><a style="color: black;">조원 목록</a></li>
+                    <ul>
+                        <li class = "list"><a href="https://gkdms2710.tistory.com/">임하은</a></li>
+                        <li class = "list"><a href="https://seungaeahn.tistory.com/">안승애</a></li>
+                        <li class = "list"><a href="https://im2ho.tistory.com/">나세희</a></li>
+                        <li class = "list"><a href="https://hotsixlover.tistory.com/">서광원</a></li>
+                    </ul>
+                </ul>
+            </nav>
+            
+            <form id = "postForm" class="postForm">
+                <label for="title">제목 : </label>
+                <input type="text" id="title" name="title" required> <!-- 필수로 적어줘야 하는애 required-->
+                <label for="content">내용 : </label>
+                <textarea id="content" name="content" required></textarea>
+                <button type="submit" id = "postUppend">게시하기</button>
+            </form>
+       
+        </section>
+    </div>
+    </body>
+    <foot>
+        
+    </foot>
+
+</html>
+

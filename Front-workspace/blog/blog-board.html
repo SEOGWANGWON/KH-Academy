@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>블로그 게시판</title>
+        <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    </head>
+    <body>
+    
+        <div id="container">           
+            <h1>게시판</h1>
+            <div id="posts" class="posts">
+                 <!-- 게시물 추가하는 공간 -->
+                
+            </div>
+            <div class="blogImg">
+                <a href="https://hotsixlover.tistory.com/"><img src="./img/그모물.jpg"></a>
+            </div>
+            <form id = "postForm" class="postForm">
+                <h2>새 게시물 작성</h2>
+                <label for="title">제목 : </label>
+                <input type="text" id="title" name="title" required> <!-- 필수로 적어줘야 하는애 required 내용이없으면-->
+                <label for="content">내용 : </label>
+                <textarea id="content" name="content" required></textarea>
+                <button type="submit" id = "postUppend">게시하기</button>
+            </form>
+        </div>
+        <script>
+            const postForm = document.getElementById("postForm");
+            const posts = document.getElementById("posts");
+            const postArray = []; // 게시물을 저장하는 배열
+
+            postForm.addEventListener("submit",function(event){
+                event.preventDefault();
+                const title = postForm.title.value;
+                const content = postForm.content.value;
+                const date = new Date();
+                const post = {
+                    title,
+                    content,
+                    date,
+                    comments:[],
+
+
+                };
+                postArray.push(post); // 게시물을 배열에 추가
+
+                //새 게시물을 담아줄 div 생성
+                const postDiv = document.createElement("div");
+                postDiv.classList.add("post"); // 배열이라서 list
+                postDiv.innerHTML = `
+                <h3>${title}</h3>
+                <p>${content}</p>
+                <p>게시일 : ${date.toLocaleString()}</p>
+                `;
+
+                //삭제버튼 생성
+                const deleteButton = document.createElement("button"); // 변수할당
+                deleteButton.classList.add("delete-button");  // 이름 붙여줌 ( class = delete-button) 과 같음
+                deleteButton.innerText = "삭제하기"; // 텍스트이름을 "삭제하기" 로
+                deleteButton.addEventListener("click",() => { // 삭제를 할경우 생기는 이벤트를 생성
+                    postArray.splice(postArray.indexOf(post),1); 
+                    posts.removeChild(postDiv);
+                });
+
+                // 댓글 폼 생성
+                const commentForm = document.createElement("form"); // 이름할당
+                commentForm.innerHTML = `
+                    <input type= "text" name="comment" placeholder="댓글추가하기">
+                    <button type="submit">게시</button>
+                
+                `; // ~ 쪽 키보드 ` ` 잊지말것
+
+                //이벤트를 전달받앗을때 {}들어가겟다
+                commentForm.addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    const commentText = commentForm.comment.value; //comment에 대한값을 가져오겟다
+                    const comment ={
+                        text : commentText,     // 이새끼 Text 로 대문자여서 게시가 안됐음
+                        date : new Date(),      //,로 끝난다..
+                    };
+                    
+                    post.comments.push(comment);
+                    const commentDiv = document.createElement("div");
+                    commentDiv.classList.add("comment");
+                    commentDiv.innerHTML = `
+                        <p>${commentText}</p>
+                        <p>게시일 : ${comment.date.toLocaleString()}</p>
+                    `;
+                    // 댓글 입력 초기화
+
+                    commentForm.comment.value = "";
+                    postDiv.appendChild(commentDiv);
+
+                });
+
+
+
+                
+                postDiv.appendChild(deleteButton);
+                postDiv.appendChild(commentForm);
+                
+                // 게시물 목록 추가
+                posts.appendChild(postDiv);
+
+                // 게시글 입력 초기화
+                postForm.title.value = "";
+                postForm.content.value = "";
+
+            
+        });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,71 @@
+html{
+    background-color: black;
+}
+body{
+    background-color: rgb(46, 46, 46);
+    width: 65%;
+    margin: 5px 5px 17.5% 17.5%;
+    
+}
+*{ /* 전체 설정 */
+    box-sizing: border-box; /* 이쁘게 box로 모음*/
+}
+.sikyungimg{
+    background-color: #6b5597b0;
+    padding: 2px;
+    float: right;
+    width: 49%;
+    height: 95%;
+    color: white;
+    margin-right: 2%;
+    border: 3px solid white;
+}
+
+nav{
+     /* float: left; 왼쪽으로 위치*/
+    width: 150px;
+    height: 300px;
+    background-color: rgb(46, 46, 46);
+    padding: 0;
+    border: 2px solid rgb(71, 71, 71);
+    margin-left: 2%;
+}
+nav ul{
+    list-style-type: none;
+    padding: 0px;
+}
+article{
+    float: left;
+    padding: 20px;
+    width: 70%;
+    background-color: #f1f1f1;
+    height: 300px;
+}
+/* 여기중요*/
+section::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+footer{
+    background-color: #cfff33;
+    padding: 10px;
+    text-align: center;
+    color: black;
+    
+}
+@media (max-width:600px){ /* 모바일 버전으로 볼때*/
+    nav,article{
+        width: 100%;
+        height: auto;
+}
+}
+img{
+height: auto;       /* 높이는 자동으로 조절되어 가로 세로 비율을 유지함 */
+max-width: 100%;    /* 이미지의 최대 너비를 부모 요소의 100%로 설정 */
+margin: 0 auto;     /* 이미지를 가운데 정렬하기 위한 마진 설정 */
+display: block;     /* 이미지를 블록 요소로 설정하여 레이아웃에 영향을 줌 */
+}
+.albumTitle{
+    
+}
